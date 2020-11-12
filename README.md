@@ -1,5 +1,5 @@
 # newsfeededu
-Simple Bot that posts best post of the day from Habr.com to the fb.com/newsfeededu
+Simple Bot that posts best post of the day from Habr.com to the https://fb.com/newsfeededu
 
 Requires FB Graph Library
 
