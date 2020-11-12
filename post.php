@@ -5,8 +5,8 @@ require_once __DIR__ . '/habr.php';
 require_once __DIR__ . '/config.php';
 
 $fb = new \Facebook\Facebook([
-  'app_id' => '2812389959038561',
-  'app_secret' => 'e647977453e23ce63e782dfc77d56807',
+  'app_id' => $appId,
+  'app_secret' => $appSecret,
   'default_graph_version' => 'v2.10',
  // 'default_access_token' => 'a965a02a49fe602f827728821f2eb8ca', // optional
 ]);
