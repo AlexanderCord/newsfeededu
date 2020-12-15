@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php'; // change path as needed
 
-require_once __DIR__ . '/habr.php';
+require_once __DIR__ . '/data.php';
 require_once __DIR__ . '/config.php';
 
 $fb = new \Facebook\Facebook([
@@ -35,25 +35,38 @@ try {
 error_reporting(E_ALL);
 $me = $response->getGraphUser();
 echo 'Logged in as ' . $me->getName();
-list($postTitle, $postUrl) = getHabrPost();
 //FB post content
-    $message = $postTitle;
-    $title = $postTitle;
-    $link = $postUrl;
-    $description = $postTitle;
-    $picture = "";
-
-    $attachment = array(
-        'message' => $message,
-        //'name' => $title,
-        'link' => $link,
-        //'description' => $description,
-        //'picture'=>$picture,
-    );
 
     try{
+        // Habrahabr
+        list($postTitle, $postUrl) = getHabrPost();
+
+        $message = $postTitle;
+        $link = $postUrl;
+
+        $attachment = array(
+            'message' => $message,
+            'link' => $link,
+        );
+
         // Post to Facebook
         $fb->post('/newsfeededu/feed', $attachment, $accessToken);
+    
+        var_dump($fb);
+        // Once a week - top Dev.to post    
+        if(date('l') == "Tuesday") {
+            list($postTitle, $postUrl) = getDevPost();
+            
+            $message = $postTitle;
+            $link = $postUrl;
+            $attachment = array(
+                'message' => $message,
+                'link' => $link,
+            );
+
+            $fb->post('/newsfeededu/feed', $attachment, $accessToken);
+        }
+
         var_dump($fb);
 
         // Display post submission status
